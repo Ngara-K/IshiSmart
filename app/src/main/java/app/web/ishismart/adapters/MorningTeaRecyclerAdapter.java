@@ -1,10 +1,12 @@
 package app.web.ishismart.adapters;
 
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import java.util.List;
 import app.web.ishismart.R;
 import app.web.ishismart.models.EditorProfile;
 import app.web.ishismart.models.MorningTea;
+import app.web.ishismart.ui.PublisherProfile;
 
 public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRecyclerAdapter.ViewHolder> {
 
@@ -48,6 +51,23 @@ public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRe
             /*getting editor profile*/
             getEditorDetails(morningTeaList.get(position).getEditor_ref(), holder.editor_display_name);
         }
+
+        /*onclick to editor profile*/
+        holder.editor_display_name.setOnClickListener(v -> {
+            holder.itemView.getContext()
+                    .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
+                    .putExtra("doc_id", morningTeaList.get(position).getAuthor_id()));
+        });
+        holder.posted_time.setOnClickListener(v -> {
+            holder.itemView.getContext()
+                    .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
+                            .putExtra("doc_id", morningTeaList.get(position).getAuthor_id()));
+        });
+        holder.user_icon.setOnClickListener(v -> {
+            holder.itemView.getContext()
+                    .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
+                            .putExtra("doc_id", morningTeaList.get(position).getAuthor_id()));
+        });
     }
 
     /*getting editor details*/
@@ -69,6 +89,7 @@ public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRe
         TextView morning_tea_title;
         TextView editor_display_name;
         TextView posted_time;
+        ImageView user_icon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,6 +97,7 @@ public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRe
             morning_tea_title = itemView.findViewById(R.id.morning_tea_title);
             editor_display_name = itemView.findViewById(R.id.editor_display_name);
             posted_time = itemView.findViewById(R.id.posted_date);
+            user_icon = itemView.findViewById(R.id.user_icon);
         }
     }
 }

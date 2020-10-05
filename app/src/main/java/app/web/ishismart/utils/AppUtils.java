@@ -13,4 +13,7 @@ public class AppUtils {
     /*morning tea collection reference*/
     public static CollectionReference morningTeaReference = FirebaseFirestore.getInstance()
             .collection("posts").document("morning_tea").collection("tea_collection");
+
+    /*editors profile reference*/
+    public static CollectionReference editorProfileReference = FirebaseFirestore.getInstance().collection("editors");
 }
