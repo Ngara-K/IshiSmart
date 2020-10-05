@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ishi Smart</string>
+    <string name="home">Home</string>
+    <string name="morning_tea">Morning Tea</string>
 </resources>
