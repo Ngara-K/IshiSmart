@@ -6,9 +6,11 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import app.web.ishismart.R;
+import app.web.ishismart.adapters.TimelineViewPagerAdapter;
 import app.web.ishismart.databinding.ActivityPublisherProfileBinding;
 import app.web.ishismart.models.EditorProfile;
+import app.web.ishismart.ui.activities_fragment.ArticlesTimeline;
+import app.web.ishismart.ui.activities_fragment.PostersTimeline;
 
 import static app.web.ishismart.utils.AppUtils.editorProfileReference;
 
@@ -18,7 +20,8 @@ public class PublisherProfile extends AppCompatActivity {
     private ActivityPublisherProfileBinding binding;
     private static String doc_id = null;
     private EditorProfile editorProfile;
-    private boolean isShowingMore;
+
+    private TimelineViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +38,24 @@ public class PublisherProfile extends AppCompatActivity {
             onBackPressed();
         }
 
+        binding.backBtn.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
         /*getting editor profile*/
         getEditorProfile();
 
-        binding.showMoreBtn.setOnClickListener(v -> {
-            if (isShowingMore) {
-                binding.showMoreBtn.setText(R.string.show_recent_activities);
-                binding.showMoreBtn.setChipIconResource(R.drawable.ic_expand_more);
-                isShowingMore = false;
+        /*setting adapter*/
+        viewPagerAdapter = new TimelineViewPagerAdapter(getSupportFragmentManager());
 
-                binding.activitiesLayout.setVisibility(View.GONE);
-            }
-            else {
-                binding.showMoreBtn.setText(R.string.hide_recent_activities);
-                binding.showMoreBtn.setChipIconResource(R.drawable.ic_expand_less);
-                isShowingMore = true;
+        /*adding fragments*/
+        viewPagerAdapter.addFragment(new ArticlesTimeline(), "Articles");
+        viewPagerAdapter.addFragment(new PostersTimeline(), "Posters");
 
-                binding.activitiesLayout.setVisibility(View.VISIBLE);
-            }
-        });
+        /*adapter*/
+        binding.activitiesViewpager.setAdapter(viewPagerAdapter);
+        /*tabs activities*/
+        binding.tabLayout.setupWithViewPager(binding.activitiesViewpager);
     }
 
     /*editor profile*/
@@ -70,5 +72,12 @@ public class PublisherProfile extends AppCompatActivity {
         binding.editorDisplayName.setText(editorProfile.getFirst_name() + " " + editorProfile.getLast_name());
         binding.locationTv.setText(editorProfile.getLocation());
         binding.mobileTv.setText(String.valueOf(editorProfile.getPhone_number()));
+    }
+
+    /*sending editor id to fragment*/
+    public Bundle getEditorId() {
+        Bundle bundle = new Bundle();
+        bundle.putString("doc_id", doc_id);
+        return bundle;
     }
 }

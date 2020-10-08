@@ -4,6 +4,5 @@
     <string name="morning_tea">Morning Tea</string>
     <string name="location">LOCATION</string>
     <string name="mobile">MOBILE</string>
-    <string name="hide_recent_activities">Hide recent activities</string>
-    <string name="show_recent_activities">Show recent activities</string>
+    <string name="recent_activities">Recent Activities</string>
 </resources>
