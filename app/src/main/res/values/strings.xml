@@ -5,4 +5,5 @@
     <string name="location">LOCATION</string>
     <string name="mobile">MOBILE</string>
     <string name="recent_activities">Recent Activities</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

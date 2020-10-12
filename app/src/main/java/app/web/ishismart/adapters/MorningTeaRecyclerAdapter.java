@@ -20,6 +20,7 @@ import app.web.ishismart.R;
 import app.web.ishismart.models.EditorProfile;
 import app.web.ishismart.models.MorningTea;
 import app.web.ishismart.ui.PublisherProfile;
+import app.web.ishismart.ui.ViewMorningTeaPost;
 
 public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRecyclerAdapter.ViewHolder> {
 
@@ -67,6 +68,13 @@ public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRe
             holder.itemView.getContext()
                     .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
                             .putExtra("doc_id", morningTeaList.get(position).getAuthor_id()));
+        });
+
+        /*on click to view post*/
+        holder.itemView.setOnClickListener(v -> {
+            holder.itemView.getContext()
+                    .startActivity(new Intent(holder.itemView.getContext(), ViewMorningTeaPost.class)
+                            .putExtra("id", morningTeaList.get(position).getId()));
         });
     }
 
