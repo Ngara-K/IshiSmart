@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:id="@+id/daily_posters_title"
-            android:text="Daily Posters"
+            android:text="@string/daily_posters"
             style="@style/TextAppearance.AppCompat.Title"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/home_tv"

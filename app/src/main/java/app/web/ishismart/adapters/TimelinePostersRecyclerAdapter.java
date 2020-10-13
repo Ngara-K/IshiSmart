@@ -16,30 +16,30 @@ import java.util.List;
 import java.util.Random;
 
 import app.web.ishismart.R;
-import app.web.ishismart.models.MorningTea;
-import app.web.ishismart.ui.ViewMorningTeaPost;
+import app.web.ishismart.models.DailyPoster;
+import app.web.ishismart.ui.ViewDailyPosterPost;
 import me.ngarak.timeagotextview.TimeAgoTextView;
 
-public class TimelineArticlesRecyclerAdapter extends RecyclerView.Adapter<TimelineArticlesRecyclerAdapter.ViewHolder> {
+public class TimelinePostersRecyclerAdapter extends RecyclerView.Adapter<TimelinePostersRecyclerAdapter.ViewHolder> {
 
     private static String TAG = "Timeline TeaRecycler Adapter : ";
-    private List<MorningTea> morningTeaList;
+    private List<DailyPoster> dailyPosterList;
 
-    public TimelineArticlesRecyclerAdapter(List<MorningTea> morningTeaList) {
-        this.morningTeaList = morningTeaList;
+    public TimelinePostersRecyclerAdapter(List<DailyPoster> dailyPosterList) {
+        this.dailyPosterList = dailyPosterList;
     }
 
     @NonNull
     @Override
-    public TimelineArticlesRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.editor_article_timeline_layout, parent, false);
-        return new TimelineArticlesRecyclerAdapter.ViewHolder(view);
+    public TimelinePostersRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.editor_poster_timeline_layout, parent, false);
+        return new TimelinePostersRecyclerAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TimelineArticlesRecyclerAdapter.ViewHolder holder, int position) {
-        holder.time_ago.setDate(morningTeaList.get(position).getPost_date().getTimestamp().toDate());
-        holder.post_title.setText(morningTeaList.get(position).getMessage_title());
+    public void onBindViewHolder(@NonNull TimelinePostersRecyclerAdapter.ViewHolder holder, int position) {
+        holder.time_ago.setDate(dailyPosterList.get(position).getPost_date().getTimestamp().toDate());
+        holder.post_summary.setText(dailyPosterList.get(position).getPoster_summary());
 
         Random random = new Random();
         int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
@@ -48,28 +48,27 @@ public class TimelineArticlesRecyclerAdapter extends RecyclerView.Adapter<Timeli
         /*on click to view post*/
         holder.itemView.setOnClickListener(v -> {
             holder.itemView.getContext()
-                    .startActivity(new Intent(holder.itemView.getContext(), ViewMorningTeaPost.class)
-                    .putExtra("id", morningTeaList.get(position).getId()));
+                    .startActivity(new Intent(holder.itemView.getContext(), ViewDailyPosterPost.class)
+                    .putExtra("id", dailyPosterList.get(position).getId()));
         });
     }
 
     @Override
     public int getItemCount() {
-        return morningTeaList.size();
+        return dailyPosterList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView post_title;
+        TextView post_summary;
         TimeAgoTextView time_ago;
         MaterialButton dot_btn;
-        MaterialButton short_text_btn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             time_ago = itemView.findViewById(R.id.time_ago);
-            post_title = itemView.findViewById(R.id.post_title);
+            post_summary = itemView.findViewById(R.id.post_summary);
             dot_btn = itemView.findViewById(R.id.dot_btn);
         }
     }

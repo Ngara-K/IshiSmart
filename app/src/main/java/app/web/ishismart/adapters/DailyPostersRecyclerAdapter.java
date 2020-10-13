@@ -1,5 +1,6 @@
 package app.web.ishismart.adapters;
 
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,8 @@ import java.util.List;
 import app.web.ishismart.R;
 import app.web.ishismart.models.DailyPoster;
 import app.web.ishismart.models.EditorProfile;
+import app.web.ishismart.ui.PublisherProfile;
+import app.web.ishismart.ui.ViewDailyPosterPost;
 
 public class DailyPostersRecyclerAdapter extends RecyclerView.Adapter<DailyPostersRecyclerAdapter.ViewHolder> {
 
@@ -39,7 +42,6 @@ public class DailyPostersRecyclerAdapter extends RecyclerView.Adapter<DailyPoste
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-
         if (dailyPosterList != null) {
             CharSequence posted_date =  DateFormat.format("dd MMM yyyy",
                     dailyPosterList.get(position).getPost_date().getTimestamp().toDate());
@@ -51,6 +53,30 @@ public class DailyPostersRecyclerAdapter extends RecyclerView.Adapter<DailyPoste
             /*getting editor profile*/
             getEditorDetails(dailyPosterList.get(position).getEditor_ref(), holder.editor_display_name);
         }
+
+        /*onclick to editor profile*/
+        holder.editor_display_name.setOnClickListener(v -> {
+            holder.itemView.getContext()
+                    .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
+                            .putExtra("doc_id", dailyPosterList.get(position).getAuthor_id()));
+        });
+        holder.post_time.setOnClickListener(v -> {
+            holder.itemView.getContext()
+                    .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
+                            .putExtra("doc_id", dailyPosterList.get(position).getAuthor_id()));
+        });
+        holder.user_icon.setOnClickListener(v -> {
+            holder.itemView.getContext()
+                    .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
+                            .putExtra("doc_id", dailyPosterList.get(position).getAuthor_id()));
+        });
+
+        /*on click to view post*/
+        holder.itemView.setOnClickListener(v -> {
+            holder.itemView.getContext()
+                    .startActivity(new Intent(holder.itemView.getContext(), ViewDailyPosterPost.class)
+                            .putExtra("id", dailyPosterList.get(position).getId()));
+        });
     }
 
     private void getEditorDetails(DocumentReference editor_ref, TextView editor_display_name) {
@@ -70,6 +96,7 @@ public class DailyPostersRecyclerAdapter extends RecyclerView.Adapter<DailyPoste
 
         TextView editor_display_name, post_time;
         ImageView poster_image;
+        ImageView user_icon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +104,7 @@ public class DailyPostersRecyclerAdapter extends RecyclerView.Adapter<DailyPoste
             editor_display_name = itemView.findViewById(R.id.editor_display_name);
             post_time = itemView.findViewById(R.id.posted_date);
             poster_image = itemView.findViewById(R.id.poster_image);
+            user_icon = itemView.findViewById(R.id.user_icon);
         }
     }
 }
