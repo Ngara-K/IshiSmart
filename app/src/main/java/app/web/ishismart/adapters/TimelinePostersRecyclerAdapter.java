@@ -49,7 +49,7 @@ public class TimelinePostersRecyclerAdapter extends RecyclerView.Adapter<Timelin
         holder.itemView.setOnClickListener(v -> {
             holder.itemView.getContext()
                     .startActivity(new Intent(holder.itemView.getContext(), ViewDailyPosterPost.class)
-                    .putExtra("id", dailyPosterList.get(position).getId()));
+                            .putExtra("id", dailyPosterList.get(position).getId()));
         });
     }
 

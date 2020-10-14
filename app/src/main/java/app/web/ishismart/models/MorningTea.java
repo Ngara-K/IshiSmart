@@ -20,7 +20,7 @@ public class MorningTea implements Serializable {
 
     }
 
-    public MorningTea (long id, String message_title, String message_summary, String message_body,
+    public MorningTea(long id, String message_title, String message_summary, String message_body,
                       String author_id, DocumentReference editor_ref, long time_mills, PostDate post_date) {
         this.id = id;
         this.message_title = message_title;

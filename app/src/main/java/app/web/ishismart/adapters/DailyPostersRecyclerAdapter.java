@@ -43,7 +43,7 @@ public class DailyPostersRecyclerAdapter extends RecyclerView.Adapter<DailyPoste
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         if (dailyPosterList != null) {
-            CharSequence posted_date =  DateFormat.format("dd MMM yyyy",
+            CharSequence posted_date = DateFormat.format("dd MMM yyyy",
                     dailyPosterList.get(position).getPost_date().getTimestamp().toDate());
             holder.post_time.setText(posted_date);
 

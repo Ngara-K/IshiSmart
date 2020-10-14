@@ -37,7 +37,7 @@ public class ViewMorningTeaPost extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding  = ActivityViewMorningTeaPostBinding.inflate(getLayoutInflater());
+        binding = ActivityViewMorningTeaPostBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -112,7 +112,7 @@ public class ViewMorningTeaPost extends AppCompatActivity {
     }
 
     /*editor details*/
-    private void getEditorDetails (DocumentReference editor_ref) {
+    private void getEditorDetails(DocumentReference editor_ref) {
         editor_ref.get().addOnSuccessListener(documentSnapshot -> {
             EditorProfile profile = documentSnapshot.toObject(EditorProfile.class);
             binding.userDisplayName.setText(profile.getFirst_name() + " " + profile.getLast_name());

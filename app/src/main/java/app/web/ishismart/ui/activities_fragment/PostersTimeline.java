@@ -27,9 +27,8 @@ import static app.web.ishismart.utils.AppUtils.dailyPosterReference;
 public class PostersTimeline extends Fragment {
 
     private static String TAG = "Posters Timeline Fragment : ";
-    private FragmentPostersTimelineBinding binding;
     private static String doc_id = null;
-
+    private FragmentPostersTimelineBinding binding;
     private List<DailyPoster> posterList = new ArrayList<>();
     private DailyPoster dailyPoster;
     private TimelinePostersRecyclerAdapter postersRecyclerAdapter;

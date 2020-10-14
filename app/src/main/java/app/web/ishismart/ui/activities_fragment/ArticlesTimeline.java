@@ -27,9 +27,8 @@ import static app.web.ishismart.utils.AppUtils.morningTeaReference;
 public class ArticlesTimeline extends Fragment {
 
     private static String TAG = "Articles Timeline Fragment : ";
-    private FragmentArticlesTimelineBinding binding;
     private static String doc_id = null;
-
+    private FragmentArticlesTimelineBinding binding;
     private List<MorningTea> teaList = new ArrayList<>();
     private MorningTea morningTea;
     private TimelineArticlesRecyclerAdapter articlesRecyclerAdapter;
@@ -69,24 +68,24 @@ public class ArticlesTimeline extends Fragment {
     /*articles*/
     private void getArticles() {
         morningTeaReference.orderBy("post_date.timestamp", Query.Direction.DESCENDING)
-            .whereEqualTo("author_id", doc_id)
-            .addSnapshotListener((querySnapshot, error) -> {
+                .whereEqualTo("author_id", doc_id)
+                .addSnapshotListener((querySnapshot, error) -> {
 
-                if (error != null) {
-                    Log.w(TAG, "Listen failed.", error);
-                    return;
-                }
+                    if (error != null) {
+                        Log.w(TAG, "Listen failed.", error);
+                        return;
+                    }
 
-                for (QueryDocumentSnapshot queryDocumentSnapshot : querySnapshot) {
-                    Log.d(TAG, "MORNING TEA: " + queryDocumentSnapshot.getId());
+                    for (QueryDocumentSnapshot queryDocumentSnapshot : querySnapshot) {
+                        Log.d(TAG, "MORNING TEA: " + queryDocumentSnapshot.getId());
 
-                    /*converting snapshot to pojo class*/
-                    morningTea = queryDocumentSnapshot.toObject(MorningTea.class);
-                    teaList.add(morningTea);
-                }
+                        /*converting snapshot to pojo class*/
+                        morningTea = queryDocumentSnapshot.toObject(MorningTea.class);
+                        teaList.add(morningTea);
+                    }
 
-                articlesRecyclerAdapter = new TimelineArticlesRecyclerAdapter(teaList);
-                binding.timelineArticlesRV.setAdapter(articlesRecyclerAdapter);
-            });
+                    articlesRecyclerAdapter = new TimelineArticlesRecyclerAdapter(teaList);
+                    binding.timelineArticlesRV.setAdapter(articlesRecyclerAdapter);
+                });
     }
 }

@@ -4,15 +4,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +37,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding  = ActivityHomeBinding.inflate(getLayoutInflater());
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -52,40 +48,40 @@ public class Home extends AppCompatActivity {
 
     private void getMorningTea() {
         morningTeaReference.orderBy("post_date.timestamp", Query.Direction.DESCENDING)
-            .get().addOnSuccessListener(querySnapshot -> {
+                .get().addOnSuccessListener(querySnapshot -> {
 
-                for (QueryDocumentSnapshot queryDocumentSnapshot : querySnapshot) {
-                    Log.d(TAG, "MORNING TEA: " + queryDocumentSnapshot.getId());
+            for (QueryDocumentSnapshot queryDocumentSnapshot : querySnapshot) {
+                Log.d(TAG, "MORNING TEA: " + queryDocumentSnapshot.getId());
 
-                    /*converting snapshot to pojo class*/
-                    morningTea = queryDocumentSnapshot.toObject(MorningTea.class);
-                    morningTeaList.add(morningTea);
-                }
+                /*converting snapshot to pojo class*/
+                morningTea = queryDocumentSnapshot.toObject(MorningTea.class);
+                morningTeaList.add(morningTea);
+            }
 
-                /*setting adapter*/
-                teaRecyclerAdapter = new MorningTeaRecyclerAdapter(morningTeaList);
-                binding.morningTeaRecyclerview.setAdapter(teaRecyclerAdapter);
-            }).addOnFailureListener(e -> Log.d(TAG, "onFailure() returned: " + e.getMessage()));
+            /*setting adapter*/
+            teaRecyclerAdapter = new MorningTeaRecyclerAdapter(morningTeaList);
+            binding.morningTeaRecyclerview.setAdapter(teaRecyclerAdapter);
+        }).addOnFailureListener(e -> Log.d(TAG, "onFailure() returned: " + e.getMessage()));
     }
 
     private void getDailyPoster() {
         dailyPosterReference.orderBy("post_date.timestamp", Query.Direction.DESCENDING)
-            .get().addOnSuccessListener(querySnapshot -> {
+                .get().addOnSuccessListener(querySnapshot -> {
 
-                for (QueryDocumentSnapshot queryDocumentSnapshot : querySnapshot) {
-                    Log.d(TAG, "DAILY POSTERS: " + queryDocumentSnapshot.getId());
+            for (QueryDocumentSnapshot queryDocumentSnapshot : querySnapshot) {
+                Log.d(TAG, "DAILY POSTERS: " + queryDocumentSnapshot.getId());
 
-                    /*converting snapshot to pojo class*/
-                    dailyPoster = queryDocumentSnapshot.toObject(DailyPoster.class);
-                    dailyPosterList.add(dailyPoster);
-                }
+                /*converting snapshot to pojo class*/
+                dailyPoster = queryDocumentSnapshot.toObject(DailyPoster.class);
+                dailyPosterList.add(dailyPoster);
+            }
 
-                /*setting adapter*/
-                postersRecyclerAdapter = new DailyPostersRecyclerAdapter(dailyPosterList);
-                binding.dailyPostersRecyclerview.setLayoutManager(new GridLayoutManager(Home.this, 2));
-                binding.dailyPostersRecyclerview.setAdapter(postersRecyclerAdapter);
+            /*setting adapter*/
+            postersRecyclerAdapter = new DailyPostersRecyclerAdapter(dailyPosterList);
+            binding.dailyPostersRecyclerview.setLayoutManager(new GridLayoutManager(Home.this, 2));
+            binding.dailyPostersRecyclerview.setAdapter(postersRecyclerAdapter);
 
-            }).addOnFailureListener(e -> Log.d(TAG, "onFailure() returned: " + e.getMessage()));
+        }).addOnFailureListener(e -> Log.d(TAG, "onFailure() returned: " + e.getMessage()));
     }
 
     @Override

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,8 +22,6 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="@dimen/_5sdp"
         android:insetLeft="0dp"
         android:insetTop="0dp"
@@ -34,28 +31,30 @@
         app:icon="@drawable/ic_arrow_back"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/OverlayButtonCircle" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/user_icon"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
         android:layout_margin="@dimen/_10sdp"
-        android:id="@+id/user_icon"
-        app:srcCompat="@drawable/ic_user"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_view" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_view"
+        app:srcCompat="@drawable/ic_user" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/editor_display_name"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:id="@+id/editor_display_name"
-        style="@style/TextAppearance.AppCompat.Title"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/user_icon"
+        app:layout_constraintEnd_toEndOf="@id/user_icon"
         app:layout_constraintStart_toStartOf="@id/user_icon"
-        app:layout_constraintEnd_toEndOf="@id/user_icon"/>
+        app:layout_constraintTop_toBottomOf="@id/user_icon" />
 
     <View
         android:id="@+id/divider"
@@ -72,8 +71,6 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider"
         android:layout_margin="@dimen/_5sdp"
         android:insetLeft="0dp"
         android:insetTop="0dp"
@@ -83,35 +80,35 @@
         app:icon="@drawable/ic_location_on"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"
         app:shapeAppearanceOverlay="@style/OverlayButtonCircle" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/location_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/location"
-        android:id="@+id/location_title"
-        android:textStyle="bold"
         android:layout_marginStart="@dimen/_5sdp"
-        app:layout_constraintTop_toTopOf="@id/location_btn"
+        android:text="@string/location"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/location_tv"
         app:layout_constraintStart_toEndOf="@id/location_btn"
-        app:layout_constraintBottom_toTopOf="@+id/location_tv"/>
+        app:layout_constraintTop_toTopOf="@id/location_btn" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/location_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/location_tv"
         android:layout_marginStart="@dimen/_5sdp"
-        app:layout_constraintTop_toBottomOf="@id/location_title"
+        app:layout_constraintBottom_toBottomOf="@id/location_btn"
         app:layout_constraintStart_toEndOf="@id/location_btn"
-        app:layout_constraintBottom_toBottomOf="@id/location_btn"/>
+        app:layout_constraintTop_toBottomOf="@id/location_title" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mobile_btn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location_btn"
         android:layout_margin="@dimen/_5sdp"
         android:insetLeft="0dp"
         android:insetTop="0dp"
@@ -121,32 +118,34 @@
         app:icon="@drawable/ic_phone"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/location_btn"
         app:shapeAppearanceOverlay="@style/OverlayButtonCircle" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/mobile_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mobile"
-        android:id="@+id/mobile_title"
-        android:textStyle="bold"
         android:layout_marginStart="@dimen/_5sdp"
-        app:layout_constraintTop_toTopOf="@id/mobile_btn"
+        android:text="@string/mobile"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/mobile_tv"
         app:layout_constraintStart_toEndOf="@id/mobile_btn"
-        app:layout_constraintBottom_toTopOf="@+id/mobile_tv"/>
+        app:layout_constraintTop_toTopOf="@id/mobile_btn" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/mobile_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/mobile_tv"
         android:layout_marginStart="@dimen/_5sdp"
-        app:layout_constraintTop_toBottomOf="@id/mobile_title"
+        app:layout_constraintBottom_toBottomOf="@id/mobile_btn"
         app:layout_constraintStart_toEndOf="@id/mobile_btn"
-        app:layout_constraintBottom_toBottomOf="@id/mobile_btn"/>
+        app:layout_constraintTop_toBottomOf="@id/mobile_title" />
 
     <com.google.android.material.chip.Chip
+        android:id="@+id/show_more_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/show_more_btn"
         android:layout_margin="@dimen/_5sdp"
         android:text="@string/recent_activities"
         app:chipBackgroundColor="@color/primaryBg"
@@ -168,23 +167,23 @@
         app:cornerRadius="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/show_more_btn"/>
+        app:layout_constraintTop_toBottomOf="@id/show_more_btn" />
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/top_view_activities"
         app:tabGravity="center"
-        app:tabRippleColor="@null"
-        android:id="@+id/tab_layout" />
+        app:tabRippleColor="@null" />
 
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/activities_viewpager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/activities_viewpager"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tab_layout"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

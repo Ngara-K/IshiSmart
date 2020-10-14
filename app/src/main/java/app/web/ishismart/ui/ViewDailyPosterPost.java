@@ -1,14 +1,14 @@
 package app.web.ishismart.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentReference;
@@ -118,7 +118,7 @@ public class ViewDailyPosterPost extends AppCompatActivity {
     }
 
     /*editor details*/
-    private void getEditorDetails (DocumentReference editor_ref) {
+    private void getEditorDetails(DocumentReference editor_ref) {
         editor_ref.get().addOnSuccessListener(documentSnapshot -> {
             EditorProfile profile = documentSnapshot.toObject(EditorProfile.class);
             binding.userDisplayName.setText(profile.getFirst_name() + " " + profile.getLast_name());

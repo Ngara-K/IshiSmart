@@ -45,7 +45,7 @@ public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRe
             holder.morning_tea_title.setText(morningTeaList.get(position).getMessage_title());
 
             /*firebase timestamp to date format*/
-            CharSequence post_date =  DateFormat.format("dd MMM yyyy",
+            CharSequence post_date = DateFormat.format("dd MMM yyyy",
                     morningTeaList.get(position).getPost_date().getTimestamp().toDate());
             holder.posted_time.setText(post_date);
 
@@ -57,7 +57,7 @@ public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRe
         holder.editor_display_name.setOnClickListener(v -> {
             holder.itemView.getContext()
                     .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
-                    .putExtra("doc_id", morningTeaList.get(position).getAuthor_id()));
+                            .putExtra("doc_id", morningTeaList.get(position).getAuthor_id()));
         });
         holder.posted_time.setOnClickListener(v -> {
             holder.itemView.getContext()
@@ -80,11 +80,11 @@ public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRe
 
     /*getting editor details*/
     private void getEditorDetails(DocumentReference editor_ref, TextView editor_display_name) {
-       editor_ref.get().addOnSuccessListener(documentSnapshot -> {
-           EditorProfile profile = documentSnapshot.toObject(EditorProfile.class);
-           editor_display_name.setText(profile.getFirst_name() + " " + profile.getLast_name());
+        editor_ref.get().addOnSuccessListener(documentSnapshot -> {
+            EditorProfile profile = documentSnapshot.toObject(EditorProfile.class);
+            editor_display_name.setText(profile.getFirst_name() + " " + profile.getLast_name());
 
-       }).addOnFailureListener(e -> Log.d(TAG, "onFailure() returned: " + e.getMessage()));
+        }).addOnFailureListener(e -> Log.d(TAG, "onFailure() returned: " + e.getMessage()));
     }
 
     @Override
