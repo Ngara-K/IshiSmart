@@ -26,8 +26,8 @@ public class AnonymousAccount extends AppCompatActivity {
             Log.d(TAG, "onSuccess() returned: " + authResult.getUser());
             toHomeActivity();
         }).addOnFailureListener(e -> {
-                Log.d(TAG, "onFailure() returned: " + e.getMessage());
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onFailure() returned: " + e.getMessage());
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 

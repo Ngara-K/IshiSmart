@@ -17,8 +17,8 @@ import static app.web.ishismart.utils.AppUtils.editorProfileReference;
 public class PublisherProfile extends AppCompatActivity {
 
     private static String TAG = "Publisher profile Activity : ";
-    private ActivityPublisherProfileBinding binding;
     private static String doc_id = null;
+    private ActivityPublisherProfileBinding binding;
     private EditorProfile editorProfile;
 
     private TimelineViewPagerAdapter viewPagerAdapter;
@@ -32,8 +32,7 @@ public class PublisherProfile extends AppCompatActivity {
 
         if (getIntent().getStringExtra("doc_id") != null) {
             doc_id = getIntent().getStringExtra("doc_id");
-        }
-        else {
+        } else {
             /*if is null back pressed*/
             onBackPressed();
         }

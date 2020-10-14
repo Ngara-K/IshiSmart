@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -17,27 +18,29 @@ import org.commonmark.node.Emphasis;
 import org.commonmark.node.StrongEmphasis;
 
 import app.web.ishismart.R;
-import app.web.ishismart.databinding.ActivityViewMorningTeaPostBinding;
+import app.web.ishismart.databinding.ActivityViewDailyPosterPostBinding;
+import app.web.ishismart.models.DailyPoster;
 import app.web.ishismart.models.EditorProfile;
-import app.web.ishismart.models.MorningTea;
 import io.noties.markwon.AbstractMarkwonPlugin;
 import io.noties.markwon.Markwon;
 import io.noties.markwon.MarkwonSpansFactory;
 import io.noties.markwon.linkify.LinkifyPlugin;
 
-import static app.web.ishismart.utils.AppUtils.morningTeaReference;
+import static app.web.ishismart.utils.AppUtils.dailyPosterReference;
 
-public class ViewMorningTeaPost extends AppCompatActivity {
+public class ViewDailyPosterPost extends AppCompatActivity {
 
-    private static String TAG = "View Morning Post Activity";
+    private static String TAG = "View Daily Poster Activity";
     private static long post_id;
-    private ActivityViewMorningTeaPostBinding binding;
+    private static String document_id;
+    private ActivityViewDailyPosterPostBinding binding;
+    private DailyPoster dailyPoster;
     private Markwon markwon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityViewMorningTeaPostBinding.inflate(getLayoutInflater());
+        binding = ActivityViewDailyPosterPostBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -53,8 +56,9 @@ public class ViewMorningTeaPost extends AppCompatActivity {
         /*getting post details*/
         getPostDetails();
 
+
         /*initialing markwon*/
-        markwon = Markwon.builder(ViewMorningTeaPost.this).usePlugin(new AbstractMarkwonPlugin() {
+        markwon = Markwon.builder(ViewDailyPosterPost.this).usePlugin(new AbstractMarkwonPlugin() {
             @Override
             public void configureSpansFactory(@NonNull MarkwonSpansFactory.Builder builder) {
                 builder.setFactory(Emphasis.class,
@@ -71,7 +75,7 @@ public class ViewMorningTeaPost extends AppCompatActivity {
 
     /*getting posts details*/
     private void getPostDetails() {
-        morningTeaReference.whereEqualTo("id", post_id).get()
+        dailyPosterReference.whereEqualTo("id", post_id).get()
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()) {
@@ -79,10 +83,12 @@ public class ViewMorningTeaPost extends AppCompatActivity {
                         binding.refreshPostLayout.setRefreshing(false);
 
                         for (DocumentSnapshot doc : task.getResult().getDocuments()) {
+                            /*getting document id*/
+                            document_id = doc.getId();
                             /*document to pojo*/
-                            MorningTea morningTea = doc.toObject(MorningTea.class);
+                            dailyPoster = doc.toObject(DailyPoster.class);
                             /*details setter*/
-                            setPostDetails(morningTea);
+                            setPostDetails(dailyPoster);
                         }
                     } else {
                         binding.refreshPostLayout.setRefreshing(false);
@@ -97,18 +103,18 @@ public class ViewMorningTeaPost extends AppCompatActivity {
 
     /*show toast*/
     private void showToast(String string) {
-        Toast.makeText(ViewMorningTeaPost.this, string, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ViewDailyPosterPost.this, string, Toast.LENGTH_SHORT).show();
     }
 
     /*details setter*/
-    private void setPostDetails(MorningTea morningTea) {
-        binding.messageTitle.setText(morningTea.getMessage_title());
-        markwon.setMarkdown(binding.messageSummary, morningTea.getMessage_summary());
-        markwon.setMarkdown(binding.message, morningTea.getMessage_body());
-        binding.timeAgo.setDate(morningTea.getPost_date().getTimestamp().toDate());
+    private void setPostDetails(DailyPoster dailyPoster) {
+        markwon.setMarkdown(binding.posterSummary, dailyPoster.getPoster_summary());
+        binding.timeAgo.setDate(dailyPoster.getPost_date().getTimestamp().toDate());
+
+        Glide.with(ViewDailyPosterPost.this).load(dailyPoster.getPoster_image_url()).into(binding.posterImage);
 
         /*get publisher info*/
-        getEditorDetails(morningTea.getEditor_ref());
+        getEditorDetails(dailyPoster.getEditor_ref());
     }
 
     /*editor details*/

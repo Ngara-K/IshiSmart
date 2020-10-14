@@ -12,73 +12,73 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.util.List;
 
 import app.web.ishismart.R;
+import app.web.ishismart.models.DailyPoster;
 import app.web.ishismart.models.EditorProfile;
-import app.web.ishismart.models.MorningTea;
 import app.web.ishismart.ui.PublisherProfile;
-import app.web.ishismart.ui.ViewMorningTeaPost;
+import app.web.ishismart.ui.ViewDailyPosterPost;
 
-public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRecyclerAdapter.ViewHolder> {
+public class DailyPostersRecyclerAdapter extends RecyclerView.Adapter<DailyPostersRecyclerAdapter.ViewHolder> {
 
-    private static String TAG = "Morning TeaRecycler Adapter : ";
-    private List<MorningTea> morningTeaList;
+    private static String TAG = "Daily Poster TeaRecycler Adapter : ";
+    private List<DailyPoster> dailyPosterList;
 
-    public MorningTeaRecyclerAdapter(List<MorningTea> morningTeaList) {
-        this.morningTeaList = morningTeaList;
+    public DailyPostersRecyclerAdapter(List<DailyPoster> dailyPosterList) {
+        this.dailyPosterList = dailyPosterList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.morning_tea_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.daily_poster_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if (morningTeaList != null) {
-            holder.morning_tea_title.setText(morningTeaList.get(position).getMessage_title());
+        if (dailyPosterList != null) {
+            CharSequence posted_date = DateFormat.format("dd MMM yyyy",
+                    dailyPosterList.get(position).getPost_date().getTimestamp().toDate());
+            holder.post_time.setText(posted_date);
 
-            /*firebase timestamp to date format*/
-            CharSequence post_date = DateFormat.format("dd MMM yyyy",
-                    morningTeaList.get(position).getPost_date().getTimestamp().toDate());
-            holder.posted_time.setText(post_date);
+            Glide.with(holder.itemView.getContext()).load(dailyPosterList.get(position)
+                    .getPoster_image_url()).into(holder.poster_image);
 
             /*getting editor profile*/
-            getEditorDetails(morningTeaList.get(position).getEditor_ref(), holder.editor_display_name);
+            getEditorDetails(dailyPosterList.get(position).getEditor_ref(), holder.editor_display_name);
         }
 
         /*onclick to editor profile*/
         holder.editor_display_name.setOnClickListener(v -> {
             holder.itemView.getContext()
                     .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
-                            .putExtra("doc_id", morningTeaList.get(position).getAuthor_id()));
+                            .putExtra("doc_id", dailyPosterList.get(position).getAuthor_id()));
         });
-        holder.posted_time.setOnClickListener(v -> {
+        holder.post_time.setOnClickListener(v -> {
             holder.itemView.getContext()
                     .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
-                            .putExtra("doc_id", morningTeaList.get(position).getAuthor_id()));
+                            .putExtra("doc_id", dailyPosterList.get(position).getAuthor_id()));
         });
         holder.user_icon.setOnClickListener(v -> {
             holder.itemView.getContext()
                     .startActivity(new Intent(holder.itemView.getContext(), PublisherProfile.class)
-                            .putExtra("doc_id", morningTeaList.get(position).getAuthor_id()));
+                            .putExtra("doc_id", dailyPosterList.get(position).getAuthor_id()));
         });
 
         /*on click to view post*/
         holder.itemView.setOnClickListener(v -> {
             holder.itemView.getContext()
-                    .startActivity(new Intent(holder.itemView.getContext(), ViewMorningTeaPost.class)
-                            .putExtra("id", morningTeaList.get(position).getId()));
+                    .startActivity(new Intent(holder.itemView.getContext(), ViewDailyPosterPost.class)
+                            .putExtra("id", dailyPosterList.get(position).getId()));
         });
     }
 
-    /*getting editor details*/
     private void getEditorDetails(DocumentReference editor_ref, TextView editor_display_name) {
         editor_ref.get().addOnSuccessListener(documentSnapshot -> {
             EditorProfile profile = documentSnapshot.toObject(EditorProfile.class);
@@ -89,22 +89,21 @@ public class MorningTeaRecyclerAdapter extends RecyclerView.Adapter<MorningTeaRe
 
     @Override
     public int getItemCount() {
-        return morningTeaList.size();
+        return this.dailyPosterList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView morning_tea_title;
-        TextView editor_display_name;
-        TextView posted_time;
+        TextView editor_display_name, post_time;
+        ImageView poster_image;
         ImageView user_icon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            morning_tea_title = itemView.findViewById(R.id.morning_tea_title);
             editor_display_name = itemView.findViewById(R.id.editor_display_name);
-            posted_time = itemView.findViewById(R.id.posted_date);
+            post_time = itemView.findViewById(R.id.posted_date);
+            poster_image = itemView.findViewById(R.id.poster_image);
             user_icon = itemView.findViewById(R.id.user_icon);
         }
     }

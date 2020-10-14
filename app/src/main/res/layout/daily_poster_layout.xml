@@ -1,56 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/_150sdp"
+    android:layout_height="@dimen/_200sdp"
     app:cardCornerRadius="@dimen/_10sdp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/tea_img"
-            android:layout_width="@dimen/_75sdp"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/tea_wallpaper" />
+            android:id="@+id/poster_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/morning_tea_title"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/user_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tea_img"
-            app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/post_gradient" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/user_icon"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_margin="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tea_img"
-            app:layout_constraintTop_toBottomOf="@id/morning_tea_title"
+            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_user" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/editor_display_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_5sdp"
             android:ellipsize="end"
             android:lines="1"
+            android:textColor="@color/primaryBg"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/posted_date"
             app:layout_constraintStart_toEndOf="@id/user_icon"
@@ -60,8 +47,9 @@
             android:id="@+id/posted_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_5sdp"
             android:ellipsize="end"
+            android:textColor="@color/primaryBg"
             android:textSize="@dimen/_8ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/user_icon"

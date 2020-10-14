@@ -22,37 +22,59 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/home_tv"
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
-            android:id="@+id/home_tv"
             android:text="@string/home"
-            style="@style/TextAppearance.AppCompat.Title"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_view"/>
+            app:layout_constraintTop_toBottomOf="@id/top_view" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/morning_tea_title"
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:id="@+id/morning_tea_title"
             android:text="@string/morning_tea"
-            style="@style/TextAppearance.AppCompat.Title"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/home_tv"
-            app:layout_constraintTop_toBottomOf="@id/home_tv"/>
+            app:layout_constraintTop_toBottomOf="@id/home_tv" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/morning_tea_recyclerview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:id="@+id/morning_tea_recyclerview"
-            app:layout_constraintTop_toBottomOf="@+id/morning_tea_title"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/morning_tea_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/daily_posters_title"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/daily_posters"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/home_tv"
+            app:layout_constraintTop_toBottomOf="@id/morning_tea_recyclerview" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/daily_posters_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/daily_posters_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
